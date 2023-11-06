@@ -51,16 +51,4 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-client.on('disconnect', (closeEvent) => {
-	fetch(ntfy_url, {
-		method: 'POST',
-		body: `code: ${closeEvent.code}, reason ${closeEvent.reason}`,
-		headers: {
-			'Title': 'BuddyBot Offline!',
-			'Priority': 'urgent'
-		}
-	});
-	console.log("test");
-});
-
 client.login(token);
