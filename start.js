@@ -4,7 +4,7 @@ const { ntfy_url } = require('./config.json');
 const fetch = require('node-fetch');
 
 child.on('exit', async (code) => {
-    fetch(ntfy_url, {
+    fetch(new URL(ntfy_url), {
         method: 'POST',
         body: `Buddybot offline!`,
         headers: {
