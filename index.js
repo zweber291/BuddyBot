@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require('discord.js');
-const { token } = require('./config.json');
+const { token, ntfy_url } = require('./config.json');
 const { Player } = require('discord-player');
 
 const client = new Client({ intents: [
@@ -49,6 +49,18 @@ client.on(Events.InteractionCreate, async interaction => {
 			await interaction.reply({ content: 'There was an error while executing this command! Contact Smack and tell him what command errored.', ephemeral: true });
 		}
 	}
+});
+
+client.on('disconnect', (closeEvent) => {
+	fetch(ntfy_url, {
+		method: 'POST',
+		body: `code: ${closeEvent.code}, reason ${closeEvent.reason}`,
+		headers: {
+			'Title': 'BuddyBot Offline!',
+			'Priority': 'urgent'
+		}
+	});
+	console.log("test");
 });
 
 client.login(token);
