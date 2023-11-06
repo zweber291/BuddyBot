@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, ActivityType } = require('discord.js');
-const { token, ntfy_url } = require('./config.json');
+const { token } = require('./config.json');
 const { Player } = require('discord-player');
 
 const client = new Client({ intents: [
